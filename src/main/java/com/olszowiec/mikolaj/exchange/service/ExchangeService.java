@@ -7,7 +7,6 @@ import com.olszowiec.mikolaj.exchange.entity.ExchangeRateEntity;
 import com.olszowiec.mikolaj.exchange.request.ExchangeRequest;
 import com.olszowiec.mikolaj.exchange.request.RatingsResponse;
 import com.olszowiec.mikolaj.exchange.response.ExchangeResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,8 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class ExchangeService {
 
-    @Autowired
-    private ExchangeConnector exchangeConnector;
+    private final ExchangeConnector exchangeConnector;
+
+    public ExchangeService(ExchangeConnector exchangeConnector) {
+        this.exchangeConnector = exchangeConnector;
+    }
 
     public RatingsResponse getCurrenciesRatings(String currency, String[] filters) {
         Map<String, Float> ratesMap = loadRatings(currency, filters);
